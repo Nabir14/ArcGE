@@ -26,3 +26,5 @@ g++ yourfilename.cpp -o yourexecutablename -lSDL2
 ```sh
 ./yourexecutablename
 ```
+
+**Note: If you have encountered any bugs or want to contribute to the project please do a pull request.**
