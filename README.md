@@ -6,6 +6,10 @@
 # How To Get ArcGE:
 *(as last modified) ArcGE has stable release yet.*
 
+**0. Install Dependency:**
+```sh
+sudo apt-get install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0-dev
+```
 **1. Clone The Repo:**
 ```sh
 git clone https://github.com/Nabir14/ArcGE.git
