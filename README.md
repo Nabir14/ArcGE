@@ -31,14 +31,13 @@ g++ yourfilename.cpp -o yourexecutablename -lSDL2
 **Window Initialization And User Input:**
 ```cpp
 #include <iostream>
-#include "arcge.hpp"
+#include "../arcge.hpp"
 using namespace std;
 
 int main(){
 	ArcGE age;
-	age.init("arc", 640, 480);
+	age.init("ArcGE Window Example", 640, 480);
 	Scene myScene(&age);
-	myScene.setClearColor(0, 0, 0, 255);
 	bool run = true;
 	while(run){
 		switch(myScene.pollEvent()){
@@ -46,19 +45,70 @@ int main(){
 				run = false;
 				break;
 			case ARCK_1:
-				myScene.setClearColor(255, 0, 0, 255);
+				myScene.clear(255, 0, 0, 255);
 				break;
 			case ARCK_2:
-				myScene.setClearColor(0 ,255, 0, 255);
+				myScene.clear(0 ,255, 0, 255);
 				break;
 			case ARCK_3:
-				myScene.setClearColor(0, 0, 255, 255);
+				myScene.clear(0, 0, 255, 255);
 				break;
 		}
 		myScene.render();
 	}
 	myScene.freeMemory();
 	return 0;
+}
+```
+
+**Object And Texture Example:**
+```cpp
+#include <iostream>
+#include "../arcge.hpp"
+using namespace std;
+
+int main(){
+	ArcGE arcge;
+	arcge.init("ArcGE Mesh Test", 640, 480);
+
+	Scene myScene(&arcge);
+
+	QuadMesh2DCPU myCube(&arcge);
+	myCube.setSize(64, 64);
+	myCube.setPos(320, 240);
+	myCube.setTexture("images/bmp_24.bmp");
+
+	int posX = 0;
+	int posY = 0;
+	bool run = true;
+
+	while(run){
+		switch(myScene.pollEvent()){
+			case ARCK_QUIT:
+				run = false;
+				break;
+			case ARCK_UP:
+				posY -= 6;
+				myCube.setPos(posX, posY);
+				break;
+			case ARCK_DOWN:
+				posY += 6;
+				myCube.setPos(posX, posY);
+				break;
+			case ARCK_LEFT:
+				posX -= 6;
+				myCube.setPos(posX, posY);
+				break;
+			case ARCK_RIGHT:
+				posX += 6;
+				myCube.setPos(posX, posY);
+				break;
+		}
+		myScene.clear(0, 0, 0, 255);
+		myCube.draw();
+		myScene.render();
+	}
+	myScene.freeMemory();
 }
 ```
 
