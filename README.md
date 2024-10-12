@@ -10,7 +10,7 @@
 - Collision Detection: `No` (WIP)
 - Textures: `Yes`
 
-# How To Get ArcGE:
+# How To Use ArcGE:
 *(as last modified) ArcGE has stable release yet.*
 
 **0. Install Dependencies:**
