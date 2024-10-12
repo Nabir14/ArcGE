@@ -37,18 +37,18 @@ g++ yourfilename.cpp -o yourexecutablename -lSDL2
 using namespace std;
 
 int main(){
-// Initialize Library
+// Initialize ArcGE Library
 	ArcGE age;
 	age.init("ArcGE Window Example", 640, 480);
 
-// Create A Scene
+// Create A Scene And Link Initialized Library
 	Scene myScene(&age);
 
 // Render Loop
 	bool run = true;
 	while(run){
 
-// Check For Key Press And Clear Window With Specified Color (scene.pollEvent() returns press key as ARCK_KEY)		switch(myScene.pollEvent()){
+// Check For Key Press And Clear Window With Specified Color [scene.pollEvent() returns press key as ARCK_KEY]	switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
@@ -66,7 +66,8 @@ int main(){
 // Render Everything In The Scene
 		myScene.render();
 	}
-// Free Memory When Program Closes
+
+// Free Memory After Program Closes
 	myScene.freeMemory();
 	return 0;
 }
@@ -79,22 +80,31 @@ int main(){
 using namespace std;
 
 int main(){
+// Initialize The ArcGE Library
 	ArcGE arcge;
 	arcge.init("ArcGE Mesh Test", 640, 480);
 
+// Create A Scene And Link The Initialized Library
 	Scene myScene(&arcge);
 
+// Create A Mesh [using Quad mesh as example]
 	QuadMesh2DCPU myCube(&arcge);
+
+// Set Size And Position
 	myCube.setSize(64, 64);
 	myCube.setPos(320, 240);
-	myCube.setTexture("images/bmp_24.bmp");
 
+// Set Texture	myCube.setTexture("images/bmp_24.bmp");
+
+// Some Useful Variables
 	int posX = 0;
 	int posY = 0;
 	bool run = true;
 
+// Game Loop
 	while(run){
-		switch(myScene.pollEvent()){
+
+// Check For Key Press And Update The Objects Position. [scene.pollEvent() returns pressed key as ARCK_KEY]		switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
@@ -115,10 +125,18 @@ int main(){
 				myCube.setPos(posX, posY);
 				break;
 		}
+
+// Clear The Window With A Specified Color
 		myScene.clear(0, 0, 0, 255);
+
+// Draw The Object
 		myCube.draw();
+
+// Render Everything In The Scene
 		myScene.render();
 	}
+
+// Free Memory After Program Closes
 	myScene.freeMemory();
 }
 ```
