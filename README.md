@@ -46,7 +46,8 @@ int main(){
 	age.init("ArcGE Window Example", 640, 480);
 
 // Create A Scene And Link Initialized Library
-	Scene myScene(&age);
+
+       Scene myScene(&age);
 
 // Render Loop
 	bool run = true;
