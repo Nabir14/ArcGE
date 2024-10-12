@@ -3,6 +3,13 @@
 
 ![arc-logo-transparent](https://github.com/user-attachments/assets/a5d1a3ae-622c-4d87-83e2-b82295a97394)
 
+**Library Information:**
+- Version: `0.3` (Alpha)
+- Render: `CPU Accelerated 2D Only` (Others WIP)
+- User Input: `Limited` (Others WIP)
+- Collision Detection: `No` (WIP)
+- Textures: `Yes`
+
 # How To Get ArcGE:
 *(as last modified) ArcGE has stable release yet.*
 
