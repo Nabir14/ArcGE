@@ -109,7 +109,8 @@ int main(){
 // Game Loop
 	while(run){
 
-// Check For Key Press And Update The Objects Position. [scene.pollEvent() returns pressed key as ARCK_KEY]		switch(myScene.pollEvent()){
+// Check For Key Press And Update The Objects Position. [scene.pollEvent() returns pressed key as ARCK_KEY]
+    switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
