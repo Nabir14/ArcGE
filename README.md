@@ -146,7 +146,7 @@ int main(){
 	myScene.freeMemory();
 }
 ```
-**Random Mesh Test:**
+**Random Mesh Example:**
 ```cpp
 #include <iostream>
 #include <cstdlib>
