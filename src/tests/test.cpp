@@ -1,12 +1,11 @@
 #include <iostream>
-#include "arcge.hpp"
+#include "../arcge.hpp"
 using namespace std;
 
 int main(){
 	ArcGE age;
-	age.init("arc", 640, 480);
+	age.init("ArcGE Window Example", 640, 480);
 	Scene myScene(&age);
-	myScene.setClearColor(0, 0, 0, 255);
 	bool run = true;
 	while(run){
 		switch(myScene.pollEvent()){
@@ -14,13 +13,13 @@ int main(){
 				run = false;
 				break;
 			case ARCK_1:
-				myScene.setClearColor(255, 0, 0, 255);
+				myScene.clear(255, 0, 0, 255);
 				break;
 			case ARCK_2:
-				myScene.setClearColor(0 ,255, 0, 255);
+				myScene.clear(0 ,255, 0, 255);
 				break;
 			case ARCK_3:
-				myScene.setClearColor(0, 0, 255, 255);
+				myScene.clear(0, 0, 255, 255);
 				break;
 		}
 		myScene.render();
