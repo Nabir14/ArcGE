@@ -6,11 +6,11 @@
 # How To Get ArcGE:
 *(as last modified) ArcGE has stable release yet.*
 
-**0. Install Dependency:**
+**0. Install Dependencies:**
 ```sh
 sudo apt-get install libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0-dev
 ```
-**1. Clone The Repo:**
+**1. Clone The Repository:**
 ```sh
 git clone https://github.com/Nabir14/ArcGE.git
 ```
@@ -18,11 +18,11 @@ git clone https://github.com/Nabir14/ArcGE.git
 ```sh
 cp ArcGE/src/arcge.hpp ~/yourprojectdirectory
 ```
-**3. Include The Library In Your Souce File:**
+**3. Include The Library In Your Source File:**
 ```cpp
 #include "arcge.hpp"
 ```
-**4. Compile:**
+**4. Compile The Code:**
 ```sh
 g++ yourfilename.cpp -o yourexecutablename -lSDL2
 ```
