@@ -28,6 +28,8 @@ g++ yourfilename.cpp -o yourexecutablename -lSDL2
 ```
 
 # Example Codes:
+*Check "tests" in "src" for test code files*
+
 **Window Initialization And User Input:**
 ```cpp
 #include <iostream>
@@ -35,12 +37,18 @@ g++ yourfilename.cpp -o yourexecutablename -lSDL2
 using namespace std;
 
 int main(){
+// Initialize Library
 	ArcGE age;
 	age.init("ArcGE Window Example", 640, 480);
+
+// Create A Scene
 	Scene myScene(&age);
+
+// Render Loop
 	bool run = true;
 	while(run){
-		switch(myScene.pollEvent()){
+
+// Check For Key Press And Clear Window With Specified Color (scene.pollEvent() returns press key as ARCK_KEY)		switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
@@ -54,8 +62,11 @@ int main(){
 				myScene.clear(0, 0, 255, 255);
 				break;
 		}
+
+// Render Everything In The Scene
 		myScene.render();
 	}
+// Free Memory When Program Closes
 	myScene.freeMemory();
 	return 0;
 }
