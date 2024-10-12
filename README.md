@@ -60,7 +60,8 @@ int main(){
 	bool run = true;
 	while(run){
 
-// Check For Key Press And Clear Window With Specified Color [scene.pollEvent() returns press key as ARCK_KEY]	switch(myScene.pollEvent()){
+// Check For Key Press And Clear Window With Specified Color [scene.pollEvent() returns press key as ARCK_KEY]
+        switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
