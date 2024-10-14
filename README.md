@@ -61,7 +61,7 @@ int main(){
 	while(run){
 
 // Check For Key Press And Clear Window With Specified Color [scene.pollEvent() returns press key as ARCK_KEY]
-        switch(myScene.pollEvent()){
+            switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
@@ -104,7 +104,7 @@ int main(){
 	while(run){
 
 // Poll Event and Clear Screen With A Specific Color [scene.pollEvent() renturns pressed key as ARCK_KEY]
-        switch(myScene.pollEvent()){
+            switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
@@ -160,7 +160,7 @@ int main(){
 	while(run){
 
 // Check For Key Press And Update The Objects Position. [scene.pollEvent() returns pressed key as ARCK_KEY]
-    switch(myScene.pollEvent()){
+            switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
@@ -216,7 +216,7 @@ int main(){
 	while(run){
 
 // Check For Key Presses [scene.pollEvent() returns key presses as ARCK_KEY]
-		switch(myScene.pollEvent()){
+            switch(myScene.pollEvent()){
 			case ARCK_QUIT:
 				run = false;
 				break;
