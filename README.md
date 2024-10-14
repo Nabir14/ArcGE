@@ -85,7 +85,49 @@ int main(){
 	return 0;
 }
 ```
+**Window With Icon Example:**
+```cpp
+#include <iostream>
+#include "../arcge.hpp"
+using namespace std;
 
+int main(){
+// Initialize The Library
+	ArcGE age;
+	age.init("ArcGE Window With Icon Example", 640, 480);
+
+// Set A Window Icon	age.setProgramIcon("images/arcge-icon.bmp");
+
+// Create A Scene
+	Scene myScene(&age);
+	bool run = true;
+	while(run){
+
+// Poll Event and Clear Screen With A Specific Color [scene.pollEvent() renturns pressed key as ARCK_KEY]
+switch(myScene.pollEvent()){
+			case ARCK_QUIT:
+				run = false;
+				break;
+			case ARCK_1:
+				myScene.clear(255, 0, 0, 255);
+				break;
+			case ARCK_2:
+				myScene.clear(0 ,255, 0, 255);
+				break;
+			case ARCK_3:
+				myScene.clear(0, 0, 255, 255);
+				break;
+		}
+
+// Render Everything In The Scene
+		myScene.render();
+	}
+
+// Free Memory After Program Closes
+	myScene.freeMemory();
+	return 0;
+}
+```
 **Object And Texture Example:**
 ```cpp
 #include <iostream>
