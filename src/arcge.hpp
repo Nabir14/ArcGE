@@ -70,6 +70,7 @@ class ArcGE{
 	void setProgramIcon(const char* path){
 		SDL_Surface* icon = SDL_LoadBMP(path);
 		SDL_SetWindowIcon(ArcGEWindow, icon);
+		SDL_FreeSurface(icon);
 	}
 };
 
