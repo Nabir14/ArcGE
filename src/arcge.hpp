@@ -2,7 +2,7 @@
 
 [      ArcGE     ]
 [Author: Nabir14 ]
-[Version: 0.4    ]
+[Version: 0.5    ]
 [License: GPLv3  ]
 
 */
@@ -10,6 +10,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include<SDL2/SDL_image.h>
 
 #define ARCK_QUIT -1
 #define ARCK_0 0
@@ -52,6 +53,7 @@
 #define ARCK_X 37
 #define ARCK_Y 38
 #define ARCK_Z 39
+#define ARCK_ESCAPE 40
 
 class ArcGE{
 	public:
@@ -62,21 +64,31 @@ class ArcGE{
 		int WINDOW_HEIGHT = 0;
 	void init(const char* windowTitle, int windowWidth, int windowHeight){
 		SDL_Init(SDL_INIT_VIDEO);
+		IMG_Init(IMG_INIT_JPG || IMG_INIT_PNG || IMG_INIT_WEBP);
 		ArcGEWindow = SDL_CreateWindow(windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 		ArcGERenderer = SDL_CreateRenderer(ArcGEWindow, -1, SDL_RENDERER_ACCELERATED);
 		this->WINDOW_WIDTH = windowWidth;
 		this->WINDOW_HEIGHT = windowHeight;
 	}
 	void setProgramIcon(const char* path){
-		SDL_Surface* icon = SDL_LoadBMP(path);
+		SDL_Surface* icon = IMG_Load(path);
 		SDL_SetWindowIcon(ArcGEWindow, icon);
 		SDL_FreeSurface(icon);
+	}
+	void quit(){
+		SDL_DestroyWindow(ArcGEWindow);
+		SDL_DestroyRenderer(ArcGERenderer);
+		SDL_Quit();
+		IMG_Quit();
 	}
 };
 
 class Scene{
         public:
 		ArcGE* arcci;
+		SDL_Surface* sceneBackground;
+		SDL_Texture* bgTexture;
+		SDL_Rect bgRect;
 	Scene(ArcGE* uci) : arcci(uci){}
         int pollEvent(){
                 SDL_PollEvent(&arcci->ArcGEEvent);
@@ -204,6 +216,9 @@ class Scene{
 			case SDLK_z:
 				return 39;
 				break;
+			case SDLK_ESCAPE:
+				return 40;
+				break;
 			}
                 }
                 return 0;
@@ -213,17 +228,18 @@ class Scene{
                 SDL_RenderClear(arcci->ArcGERenderer);
         }
         void render(){
+		SDL_RenderCopy(arcci->ArcGERenderer, bgTexture, NULL, &bgRect);
                 SDL_RenderPresent(arcci->ArcGERenderer);
         }
-        void freeMemory(){
-                arcci->ArcGEWindow = NULL;
-                arcci->ArcGERenderer = NULL;
-                SDL_DestroyWindow(arcci->ArcGEWindow);
-                SDL_DestroyRenderer(arcci->ArcGERenderer);
-        }
+	void setBackground(const char* path){
+		sceneBackground = IMG_Load(path);
+		bgRect = {0, 0, arcci->WINDOW_WIDTH, arcci->WINDOW_HEIGHT};
+		bgTexture = SDL_CreateTextureFromSurface(arcci->ArcGERenderer, sceneBackground);
+		SDL_FreeSurface(sceneBackground);
+	}
 };
 
-class QuadMesh2DCPU{
+class Rect2DCPU{
 	public:
 		ArcGE* arcci;
 		SDL_Rect rect;
@@ -232,7 +248,7 @@ class QuadMesh2DCPU{
 		int rcG = 255;
 		int rcB = 255;
 		int rcA = 255;
-	QuadMesh2DCPU(ArcGE* uci) : arcci(uci){}
+	Rect2DCPU(ArcGE* uci) : arcci(uci){}
 	void createMesh(int pX, int pY, int sX, int sY){
 		this->rect = {pX, pY, sX, sY};
 	}
@@ -251,7 +267,7 @@ class QuadMesh2DCPU{
 		this->rcA = a;
 	}
 	void setTexture(const char* path){
-		SDL_Surface* textureSurface = SDL_LoadBMP(path);
+		SDL_Surface* textureSurface = IMG_Load(path);
 		texture = SDL_CreateTextureFromSurface(arcci->ArcGERenderer, textureSurface);
 		SDL_FreeSurface(textureSurface);
 	}
