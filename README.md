@@ -4,7 +4,7 @@
 ![arc-logo-transparent](https://github.com/user-attachments/assets/a5d1a3ae-622c-4d87-83e2-b82295a97394)
 
 **Library Information:**
-- Version: `0.4` (Alpha)
+- Version: `0.5` (Alpha)
 - Render: `CPU Accelerated 2D Only` (Others WIP)
 - User Input: `Limited` (Others WIP)
 - Collision Detection: `No` (WIP)
@@ -31,13 +31,14 @@ cp ArcGE/src/arcge.hpp ~/yourprojectdirectory
 ```
 **4. Compile The Code:**
 ```sh
-g++ yourfilename.cpp -o yourexecutablename -lSDL2
+g++ yourfilename.cpp -o yourexecutablename -lSDL2 -lSDL2_image
 ```
 **5. Run && Enjoy:**
 ```sh
 ./yourexecutablename
 ```
 
+**Example Is Outdated For v0.5 and Will Be Updated ASAP (i need sleep)**
 # Example Codes:
 *Check "tests" in "src" for test code files*
 
