@@ -8,7 +8,7 @@ int main(){
 
 	Scene myScene(&arcge);
 
-	QuadMesh2DCPU myCube(&arcge);
+	Rect2DCPU myCube(&arcge);
 	myCube.setSize(64, 64);
 	myCube.setPos(320, 240);
 	myCube.setTexture("images/bmp_24.bmp");
