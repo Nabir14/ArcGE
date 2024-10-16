@@ -25,6 +25,6 @@ int main(){
 		}
 		myScene.render();
 	}
-	myScene.freeMemory();
+	arcge.quit();
 	return 0;
 }
