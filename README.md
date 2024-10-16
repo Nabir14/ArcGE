@@ -5,7 +5,7 @@
 
 **Library Information:**
 - Version: `0.5` (Alpha)
-- Renderer: `CPU Accelerated 2D Only`
+- Renderer: `2D (CPU Accelerated)`
 
 # How To Use ArcGE:
 *(as last modified) ArcGE has no stable release yet.*
