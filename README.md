@@ -6,6 +6,12 @@
 **Library Information:**
 - Version: `0.5` (Alpha)
 - Renderer: `2D (CPU Accelerated)`
+# Screenshots:
+![Screenshot_2024-10-16-23-31-12-030_com termux x11](https://github.com/user-attachments/assets/be68ac8a-8b28-4e3c-a98b-b651a4b6b1e5)
+![Screenshot_2024-10-16-23-31-42-069_com termux x11](https://github.com/user-attachments/assets/2aca7275-f7c7-418b-a26a-dc2c0de5364c)
+![Screenshot_2024-10-16-23-32-17-703_com termux x11](https://github.com/user-attachments/assets/a8c318e4-6d25-44ba-bae3-29a249bbcabe)
+![Screenshot_2024-10-16-23-32-58-000_com termux x11](https://github.com/user-attachments/assets/5b59ee03-4b38-408a-b78e-9db7d9542f4b)
+
 
 # How To Use ArcGE:
 *(as last modified) ArcGE has no stable release yet.*
