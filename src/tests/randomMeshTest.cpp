@@ -45,6 +45,6 @@ int main(){
 	}
 
 // Free The Memory After The Program Closes
-	myScene.freeMemory();
+	arcge.quit();
 	return 0;
 }
