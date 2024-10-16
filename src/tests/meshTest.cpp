@@ -44,4 +44,5 @@ int main(){
 		myScene.render();
 	}
 	arcge.quit();
+	return 0;
 }
