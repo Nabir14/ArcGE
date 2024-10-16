@@ -226,9 +226,9 @@ class Scene{
         void clear(int r, int g, int b, int a){
                 SDL_SetRenderDrawColor(arcci->ArcGERenderer, r, g, b, a);
                 SDL_RenderClear(arcci->ArcGERenderer);
+		SDL_RenderCopy(arcci->ArcGERenderer, bgTexture, NULL, &bgRect);
         }
         void render(){
-		SDL_RenderCopy(arcci->ArcGERenderer, bgTexture, NULL, &bgRect);
                 SDL_RenderPresent(arcci->ArcGERenderer);
         }
 	void setBackground(const char* path){
