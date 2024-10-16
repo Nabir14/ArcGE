@@ -1,5 +1,5 @@
 # ArcGE
-**Arc Game Engine** is a Game Development Library made in C++, SDL2 and OpenGL.
+**Arc Game Engine** is a Game Development Library made in C++ and SDL2.
 
 ![arc-logo-transparent](https://github.com/user-attachments/assets/a5d1a3ae-622c-4d87-83e2-b82295a97394)
 
@@ -11,7 +11,7 @@
 - Textures: `Yes`
 
 # How To Use ArcGE:
-*(as last modified) ArcGE has stable release yet.*
+*(as last modified) ArcGE has no stable release yet.*
 
 **0. Install Dependencies:**
 ```sh
@@ -38,7 +38,6 @@ g++ yourfilename.cpp -o yourexecutablename -lSDL2 -lSDL2_image
 ./yourexecutablename
 ```
 
-**Example Is Outdated For v0.5 and Will Be Updated ASAP (i need sleep)**
 # Example Codes:
 *Check "tests" in "src" for test code files*
 
