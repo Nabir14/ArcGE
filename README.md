@@ -5,10 +5,7 @@
 
 **Library Information:**
 - Version: `0.5` (Alpha)
-- Render: `CPU Accelerated 2D Only` (Others WIP)
-- User Input: `Limited` (Others WIP)
-- Collision Detection: `No` (WIP)
-- Textures: `Yes`
+- Renderer: `CPU Accelerated 2D Only`
 
 # How To Use ArcGE:
 *(as last modified) ArcGE has no stable release yet.*
