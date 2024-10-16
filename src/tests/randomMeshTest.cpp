@@ -29,7 +29,7 @@ int main(){
 		for(int i = 0; i < 16; i++){
 
 // Create Quad Mesh
-			QuadMesh2DCPU myCube(&arcge);
+			Rect2DCPU myCube(&arcge);
 
 // Randomly Choose Random Position, Size And Color
 			myCube.setPos(rand() % 640, rand() % 480);
