@@ -43,5 +43,5 @@ int main(){
 		myCube.draw();
 		myScene.render();
 	}
-	myScene.freeMemory();
+	arcge.quit();
 }
