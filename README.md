@@ -78,7 +78,7 @@ int main(){
 	}
 
 // Free Memory After Program Closes
-	arcge.quit();
+	age.quit();
 	return 0;
 }
 ```
@@ -121,7 +121,7 @@ int main(){
 	}
 
 // Free Memory After Program Closes
-	arcge.quit();
+	age.quit();
 	return 0;
 }
 ```

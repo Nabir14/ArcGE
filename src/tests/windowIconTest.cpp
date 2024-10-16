@@ -25,6 +25,6 @@ int main(){
 		}
 		myScene.render();
 	}
-	arcge.quit();
+	age.quit();
 	return 0;
 }
