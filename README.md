@@ -294,4 +294,4 @@ int main(){
 }
 ```
 
-**Note: If you have encountered any bugs or want to contribute to the project please do a pull request.**
+**Note: If you have encountered any bugs Open An Issue. If you want to contribute to the project please do a pull request.**
