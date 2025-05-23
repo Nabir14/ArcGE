@@ -2,15 +2,16 @@
 
 [      ArcGE     ]
 [Author: Nabir14 ]
-[Version: 0.5    ]
+[Version: 0.6    ]
 [License: GPLv3  ]
 
 */
 
 #pragma once
 
-#include <SDL2/SDL.h>
-#include<SDL2/SDL_image.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
+#include <SDL3_image/SDL_image.h>
 
 #define ARCK_QUIT -1
 #define ARCK_0 0
@@ -64,22 +65,20 @@ class ArcGE{
 		int WINDOW_HEIGHT = 0;
 	void init(const char* windowTitle, int windowWidth, int windowHeight){
 		SDL_Init(SDL_INIT_VIDEO);
-		IMG_Init(IMG_INIT_JPG || IMG_INIT_PNG || IMG_INIT_WEBP);
-		ArcGEWindow = SDL_CreateWindow(windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-		ArcGERenderer = SDL_CreateRenderer(ArcGEWindow, -1, SDL_RENDERER_ACCELERATED);
+
+		SDL_CreateWindowAndRenderer(windowTitle, windowWidth, windowHeight, SDL_WINDOW_RESIZABLE, &ArcGEWindow, &ArcGERenderer);
 		this->WINDOW_WIDTH = windowWidth;
 		this->WINDOW_HEIGHT = windowHeight;
 	}
 	void setProgramIcon(const char* path){
 		SDL_Surface* icon = IMG_Load(path);
 		SDL_SetWindowIcon(ArcGEWindow, icon);
-		SDL_FreeSurface(icon);
+		SDL_DestroySurface(icon);
 	}
 	void quit(){
 		SDL_DestroyWindow(ArcGEWindow);
 		SDL_DestroyRenderer(ArcGERenderer);
 		SDL_Quit();
-		IMG_Quit();
 	}
 };
 
@@ -88,14 +87,14 @@ class Scene{
 		ArcGE* arcci;
 		SDL_Surface* sceneBackground;
 		SDL_Texture* bgTexture;
-		SDL_Rect bgRect;
+		SDL_FRect bgRect;
 	Scene(ArcGE* uci) : arcci(uci){}
         int pollEvent(){
                 SDL_PollEvent(&arcci->ArcGEEvent);
-                if(arcci->ArcGEEvent.type == SDL_QUIT){
+                if(arcci->ArcGEEvent.type == SDL_EVENT_QUIT){
                 	return -1;
-                }else if(arcci->ArcGEEvent.type == SDL_KEYDOWN){
-                	switch(arcci->ArcGEEvent.key.keysym.sym){
+                }else if(arcci->ArcGEEvent.type == SDL_EVENT_KEY_DOWN){
+                	switch(arcci->ArcGEEvent.key.key){
 			case SDLK_0:
 				return 0;
 				break;
@@ -138,82 +137,82 @@ class Scene{
 			case SDLK_RIGHT:
 				return 13;
 				break;
-			case SDLK_a:
+			case SDLK_A:
 				return 14;
 				break;
-			case SDLK_b:
+			case SDLK_B:
 				return 15;
 				break;
-			case SDLK_c:
+			case SDLK_C:
 				return 16;
 				break;
-			case SDLK_d:
+			case SDLK_D:
 				return 17;
 				break;
-			case SDLK_e:
+			case SDLK_E:
 				return 18;
 				break;
-			case SDLK_f:
+			case SDLK_F:
 				return 19;
 				break;
-			case SDLK_g:
+			case SDLK_G:
 				return 20;
 				break;
-			case SDLK_h:
+			case SDLK_H:
 				return 21;
 				break;
-			case SDLK_i:
+			case SDLK_I:
 				return 22;
 				break;
-			case SDLK_j:
+			case SDLK_J:
 				return 23;
 				break;
-			case SDLK_k:
+			case SDLK_K:
 				return 24;
 				break;
-			case SDLK_l:
+			case SDLK_L:
 				return 25;
 				break;
-			case SDLK_m:
+			case SDLK_M:
 				return 26;
 				break;
-			case SDLK_n:
+			case SDLK_N:
 				return 27;
 				break;
-			case SDLK_o:
+			case SDLK_O:
 				return 28;
 				break;
-			case SDLK_p:
+			case SDLK_P:
 				return 29;
 				break;
-			case SDLK_q:
+			case SDLK_Q:
 				return 30;
 				break;
-			case SDLK_r:
+			case SDLK_R:
 				return 31;
 				break;
-			case SDLK_s:
+			case SDLK_S:
 				return 32;
 				break;
-			case SDLK_t:
+			case SDLK_T:
 				return 33;
 				break;
-			case SDLK_u:
+			case SDLK_U:
 				return 34;
 				break;
-			case SDLK_v:
+			case SDLK_V:
 				return 35;
 				break;
-			case SDLK_w:
+			case SDLK_W:
 				return 36;
 				break;
-			case SDLK_x:
+			case SDLK_X:
 				return 37;
 				break;
-			case SDLK_y:
+			case SDLK_Y:
 				return 38;
 				break;
-			case SDLK_z:
+			case SDLK_Z:
 				return 39;
 				break;
 			case SDLK_ESCAPE:
@@ -226,37 +225,37 @@ class Scene{
         void clear(int r, int g, int b, int a){
                 SDL_SetRenderDrawColor(arcci->ArcGERenderer, r, g, b, a);
                 SDL_RenderClear(arcci->ArcGERenderer);
-		SDL_RenderCopy(arcci->ArcGERenderer, bgTexture, NULL, &bgRect);
+		SDL_RenderTexture(arcci->ArcGERenderer, bgTexture, NULL, &bgRect);
         }
         void render(){
                 SDL_RenderPresent(arcci->ArcGERenderer);
         }
 	void setBackground(const char* path){
 		sceneBackground = IMG_Load(path);
-		bgRect = {0, 0, arcci->WINDOW_WIDTH, arcci->WINDOW_HEIGHT};
+		bgRect = {0, 0, (float)arcci->WINDOW_WIDTH, (float)arcci->WINDOW_HEIGHT};
 		bgTexture = SDL_CreateTextureFromSurface(arcci->ArcGERenderer, sceneBackground);
-		SDL_FreeSurface(sceneBackground);
+		SDL_DestroySurface(sceneBackground);
 	}
 };
 
 class Rect2DCPU{
 	public:
 		ArcGE* arcci;
-		SDL_Rect rect;
+		SDL_FRect rect;
 		SDL_Texture* texture;
 		int rcR = 255;
 		int rcG = 255;
 		int rcB = 255;
 		int rcA = 255;
 	Rect2DCPU(ArcGE* uci) : arcci(uci){}
-	void createMesh(int pX, int pY, int sX, int sY){
+	void createMesh(float pX, float pY, float sX, float sY){
 		this->rect = {pX, pY, sX, sY};
 	}
-	void setPos(int x, int y){
+	void setPos(float x, float y){
 		this->rect.x = x;
 		this->rect.y = y;
 	}
-	void setSize(int x, int y){
+	void setSize(float x, float y){
 		this->rect.w = x;
 		this->rect.h = y;
 	}
@@ -269,11 +268,11 @@ class Rect2DCPU{
 	void setTexture(const char* path){
 		SDL_Surface* textureSurface = IMG_Load(path);
 		texture = SDL_CreateTextureFromSurface(arcci->ArcGERenderer, textureSurface);
-		SDL_FreeSurface(textureSurface);
+		SDL_DestroySurface(textureSurface);
 	}
 	void draw(){
 		SDL_SetRenderDrawColor(arcci->ArcGERenderer, rcR, rcG, rcB, rcA);
 		SDL_RenderFillRect(arcci->ArcGERenderer, &rect);
-		SDL_RenderCopy(arcci->ArcGERenderer, texture, NULL, &rect);
+		SDL_RenderTexture(arcci->ArcGERenderer, texture, NULL, &rect);
 	}
 };
