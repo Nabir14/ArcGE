@@ -2,7 +2,7 @@
 
 [      ArcGE     ]
 [Author: Nabir14 ]
-[Version: 0.6    ]
+[Version: 0.7    ]
 [License: GPLv3  ]
 
 */
@@ -59,14 +59,12 @@
 class ArcGE{
 	public:
 		SDL_Window* ArcGEWindow;
-		SDL_Renderer* ArcGERenderer;
-		SDL_Event ArcGEEvent;
 		int WINDOW_WIDTH = 0;
 		int WINDOW_HEIGHT = 0;
 	void init(const char* windowTitle, int windowWidth, int windowHeight){
 		SDL_Init(SDL_INIT_VIDEO);
 
-		SDL_CreateWindowAndRenderer(windowTitle, windowWidth, windowHeight, SDL_WINDOW_RESIZABLE, &ArcGEWindow, &ArcGERenderer);
+		ArcGEWindow = SDL_CreateWindow(windowTitle, windowWidth, windowHeight, NULL);
 		this->WINDOW_WIDTH = windowWidth;
 		this->WINDOW_HEIGHT = windowHeight;
 	}
@@ -77,7 +75,6 @@ class ArcGE{
 	}
 	void quit(){
 		SDL_DestroyWindow(ArcGEWindow);
-		SDL_DestroyRenderer(ArcGERenderer);
 		SDL_Quit();
 	}
 };
@@ -85,16 +82,22 @@ class ArcGE{
 class Scene{
         public:
 		ArcGE* arcci;
+		SDL_Renderer* ArcGERenderer;
+		SDL_Event ArcGEEvent;
 		SDL_Surface* sceneBackground;
 		SDL_Texture* bgTexture;
 		SDL_FRect bgRect;
+		SDL_FRect cameraRect;
 	Scene(ArcGE* uci) : arcci(uci){}
+	void init(){
+		ArcGERenderer = SDL_CreateRenderer(arcci->ArcGEWindow, NULL);
+	}
         int pollEvent(){
-                SDL_PollEvent(&arcci->ArcGEEvent);
-                if(arcci->ArcGEEvent.type == SDL_EVENT_QUIT){
+                SDL_PollEvent(&ArcGEEvent);
+                if(ArcGEEvent.type == SDL_EVENT_QUIT){
                 	return -1;
-                }else if(arcci->ArcGEEvent.type == SDL_EVENT_KEY_DOWN){
-                	switch(arcci->ArcGEEvent.key.key){
+                }else if(ArcGEEvent.type == SDL_EVENT_KEY_DOWN){
+                	switch(ArcGEEvent.key.key){
 			case SDLK_0:
 				return 0;
 				break;
@@ -223,31 +226,38 @@ class Scene{
                 return 0;
         }
         void clear(int r, int g, int b, int a){
-                SDL_SetRenderDrawColor(arcci->ArcGERenderer, r, g, b, a);
-                SDL_RenderClear(arcci->ArcGERenderer);
-		SDL_RenderTexture(arcci->ArcGERenderer, bgTexture, NULL, &bgRect);
+                SDL_SetRenderDrawColor(ArcGERenderer, r, g, b, a);
+                SDL_RenderClear(ArcGERenderer);
+		SDL_RenderTexture(ArcGERenderer, bgTexture, NULL, &bgRect);
         }
         void render(){
-                SDL_RenderPresent(arcci->ArcGERenderer);
+                SDL_RenderPresent(ArcGERenderer);
         }
 	void setBackground(const char* path){
 		sceneBackground = IMG_Load(path);
 		bgRect = {0, 0, (float)arcci->WINDOW_WIDTH, (float)arcci->WINDOW_HEIGHT};
-		bgTexture = SDL_CreateTextureFromSurface(arcci->ArcGERenderer, sceneBackground);
+		bgTexture = SDL_CreateTextureFromSurface(ArcGERenderer, sceneBackground);
 		SDL_DestroySurface(sceneBackground);
+	}
+	void setCamera(SDL_FRect cR){
+		this->cameraRect = cR;
+	}
+	void free(){
+		SDL_DestroyRenderer(ArcGERenderer);
 	}
 };
 
+// FIXME: Texture Not Rendering
 class Rect2DCPU{
 	public:
-		ArcGE* arcci;
+		Scene* arcsci;
 		SDL_FRect rect;
 		SDL_Texture* texture;
 		int rcR = 255;
 		int rcG = 255;
 		int rcB = 255;
 		int rcA = 255;
-	Rect2DCPU(ArcGE* uci) : arcci(uci){}
+	Rect2DCPU(Scene* usci) : arcsci(usci){}
 	void createMesh(float pX, float pY, float sX, float sY){
 		this->rect = {pX, pY, sX, sY};
 	}
@@ -267,12 +277,34 @@ class Rect2DCPU{
 	}
 	void setTexture(const char* path){
 		SDL_Surface* textureSurface = IMG_Load(path);
-		texture = SDL_CreateTextureFromSurface(arcci->ArcGERenderer, textureSurface);
+		texture = SDL_CreateTextureFromSurface(arcsci->ArcGERenderer, textureSurface);
 		SDL_DestroySurface(textureSurface);
 	}
 	void draw(){
-		SDL_SetRenderDrawColor(arcci->ArcGERenderer, rcR, rcG, rcB, rcA);
-		SDL_RenderFillRect(arcci->ArcGERenderer, &rect);
-		SDL_RenderTexture(arcci->ArcGERenderer, texture, NULL, &rect);
+		this->rect.x = this->rect.x - arcsci->cameraRect.x;
+		this->rect.y = this->rect.y - arcsci->cameraRect.y;
+		SDL_SetRenderDrawColor(arcsci->ArcGERenderer, rcR, rcG, rcB, rcA);
+		SDL_RenderFillRect(arcsci->ArcGERenderer, &rect);
+		SDL_RenderTexture(arcsci->ArcGERenderer, texture, NULL, &rect);
+	}
+};
+
+// FIXME: Camera2D not moving
+class Camera2D{
+	public:
+		ArcGE* arcci;
+		Scene* arcsci;
+		SDL_FRect rect;
+		float pX = 0.;
+		float pY = 0.;
+
+	Camera2D(ArcGE* uci) : arcci(uci){}
+
+	void create(float x = 0., float y = 0.){
+		rect = {x, y, arcci->WINDOW_WIDTH, arcci->WINDOW_HEIGHT};
+	}
+	void setPos(float x, float y){
+		this->pX = x;
+		this->pY = y;
 	}
 };
