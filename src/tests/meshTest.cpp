@@ -9,7 +9,7 @@ int main(){
 	Scene myScene(&arcge);
 	myScene.create();
 	
-	Camera2D cam(&arcge);
+	Camera2D cam(&arcge, &myScene);
 	cam.create();
 
 	Rect2DCPU myCube(&myScene);
@@ -44,7 +44,6 @@ int main(){
 				break;
 		}
 		myScene.clear(0, 0, 0, 255);
-		myScene.setCamera(cam.rect);
 		myCube.draw();
 		myScene.render();
 	}

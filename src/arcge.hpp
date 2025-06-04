@@ -252,7 +252,7 @@ class Rect2DCPU{
 	public:
 		Scene* arcsci;
 		SDL_FRect rect;
-		SDL_Texture* texture;
+		SDL_Texture* texture = NULL;
 		int rcR = 255;
 		int rcG = 255;
 		int rcB = 255;
@@ -281,11 +281,17 @@ class Rect2DCPU{
 		SDL_DestroySurface(textureSurface);
 	}
 	void draw(){
-		this->rect.x = this->rect.x - arcsci->cameraRect.x;
-		this->rect.y = this->rect.y - arcsci->cameraRect.y;
+		SDL_FRect tempRect{
+			this->rect.x - arcsci->cameraRect.x,
+			this->rect.y - arcsci->cameraRect.y,
+			this->rect.w,
+			this->rect.h
+		};
 		SDL_SetRenderDrawColor(arcsci->ArcGERenderer, rcR, rcG, rcB, rcA);
-		SDL_RenderFillRect(arcsci->ArcGERenderer, &rect);
-		SDL_RenderTexture(arcsci->ArcGERenderer, texture, NULL, &rect);
+		SDL_RenderFillRect(arcsci->ArcGERenderer, &tempRect);
+		if(texture){
+			SDL_RenderTexture(arcsci->ArcGERenderer, texture, NULL, &tempRect);
+		}
 	}
 };
 
@@ -293,17 +299,20 @@ class Rect2DCPU{
 class Camera2D{
 	public:
 		ArcGE* arcci;
+		Scene* arcsci;
 		SDL_FRect rect;
 		float pX = 0.;
 		float pY = 0.;
 
-	Camera2D(ArcGE* uci) : arcci(uci){}
+	Camera2D(ArcGE* uci, Scene* usci) : arcci(uci), arcsci(usci){}
 
 	void create(float x = 0., float y = 0.){
 		rect = {x, y, (float)arcci->WINDOW_WIDTH, (float)arcci->WINDOW_HEIGHT};
+		arcsci->setCamera(rect);
 	}
 	void setPos(float x, float y){
 		this->pX = x;
 		this->pY = y;
+		arcsci->setCamera(rect);
 	}
 };
