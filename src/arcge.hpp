@@ -295,7 +295,6 @@ class Rect2DCPU{
 	}
 };
 
-// FIXME: Camera2D not moving
 class Camera2D{
 	public:
 		ArcGE* arcci;
@@ -314,5 +313,9 @@ class Camera2D{
 		this->pX = x;
 		this->pY = y;
 		arcsci->setCamera(rect);
+	}
+	void view(){
+		this->rect.x = this->pX;
+		this->rect.y = this->pY;
 	}
 };

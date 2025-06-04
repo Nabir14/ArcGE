@@ -9,8 +9,8 @@ int main(){
 	Scene myScene(&arcge);
 	myScene.create();
 	
-	Camera2D cam(&arcge, &myScene);
-	cam.create();
+	Camera2D myCamera(&arcge, &myScene);
+	myCamera.create();
 
 	Rect2DCPU myCube(&myScene);
 	myCube.setSize(64, 64);
@@ -28,22 +28,23 @@ int main(){
 				break;
 			case ARCK_UP:
 				posY -= 6;
-				cam.setPos(posX, posY);
+				myCube.setPos(posX, posY);
 				break;
 			case ARCK_DOWN:
 				posY += 6;
-				cam.setPos(posX, posY);
+				myCube.setPos(posX, posY);
 				break;
 			case ARCK_LEFT:
 				posX -= 6;
-				cam.setPos(posX, posY);
+				myCube.setPos(posX, posY);
 				break;
 			case ARCK_RIGHT:
 				posX += 6;
-				cam.setPos(posX, posY);
+				myCube.setPos(posX, posY);
 				break;
 		}
 		myScene.clear(0, 0, 0, 255);
+		myCamera.view();
 		myCube.draw();
 		myScene.render();
 	}
