@@ -89,7 +89,7 @@ class Scene{
 		SDL_FRect bgRect;
 		SDL_FRect cameraRect;
 	Scene(ArcGE* uci) : arcci(uci){}
-	void init(){
+	void create(){
 		ArcGERenderer = SDL_CreateRenderer(arcci->ArcGEWindow, NULL);
 	}
         int pollEvent(){
@@ -293,7 +293,6 @@ class Rect2DCPU{
 class Camera2D{
 	public:
 		ArcGE* arcci;
-		Scene* arcsci;
 		SDL_FRect rect;
 		float pX = 0.;
 		float pY = 0.;
@@ -301,7 +300,7 @@ class Camera2D{
 	Camera2D(ArcGE* uci) : arcci(uci){}
 
 	void create(float x = 0., float y = 0.){
-		rect = {x, y, arcci->WINDOW_WIDTH, arcci->WINDOW_HEIGHT};
+		rect = {x, y, (float)arcci->WINDOW_WIDTH, (float)arcci->WINDOW_HEIGHT};
 	}
 	void setPos(float x, float y){
 		this->pX = x;

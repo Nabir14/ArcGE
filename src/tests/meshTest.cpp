@@ -7,10 +7,10 @@ int main(){
 	arcge.init("ArcGE Mesh Test", 640, 480);
 
 	Scene myScene(&arcge);
-	myScene.init();
+	myScene.create();
 	
 	Camera2D cam(&arcge);
-	myScene.setCamera(cam.rect);
+	cam.create();
 
 	Rect2DCPU myCube(&myScene);
 	myCube.setSize(64, 64);
@@ -44,6 +44,7 @@ int main(){
 				break;
 		}
 		myScene.clear(0, 0, 0, 255);
+		myScene.setCamera(cam.rect);
 		myCube.draw();
 		myScene.render();
 	}
