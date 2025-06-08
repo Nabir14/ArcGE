@@ -1,5 +1,5 @@
-# ArcGE
-**Arc Game Engine** is a Game Development Library made in C++ and SDL3.
+# ArcGE-SYS
+**Arc Game Library** for native systems. The library is made in C++ and SDL3.
 
 ![arc-logo-transparent](https://github.com/user-attachments/assets/a5d1a3ae-622c-4d87-83e2-b82295a97394)
 
